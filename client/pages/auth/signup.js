@@ -33,6 +33,7 @@ export default () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="form-control"
                 placeholder="Enter your email"
+                style={{ backgroundColor: '#f8f9fa', color: '#495057' }}
               />
             </div>
             <div className="form-group">
@@ -43,10 +44,23 @@ export default () => {
                 type="password"
                 className="form-control"
                 placeholder="Enter your password"
+                style={{ backgroundColor: '#f8f9fa', color: '#495057' }}
               />
             </div>
             {errors && <div className="alert alert-danger">{errors}</div>}
-            <button className="btn btn-primary">Sign Up</button>
+            <div className="text-center">
+              <button
+                className="btn btn-primary"
+                style={{
+                  background: 'linear-gradient(to right, #020024, #0c0cd2, #00d4ff)',
+                  border: 'none',
+                  color: '#ffffff',
+                  width: '150px'
+                }}
+              >
+                Sign Up
+              </button>
+            </div>
           </form>
         </div>
       </div>
