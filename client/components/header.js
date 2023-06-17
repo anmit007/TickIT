@@ -18,12 +18,12 @@ export default ({ currentUser }) => {
     });
 
   return (
-    <nav className="navbar navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-gradient-primary">
       <Link href="/" legacyBehavior>
         <a className="navbar-brand">TickIt</a>
       </Link>
-      <div className="d-flex justify-content-end">
-        <ul className="nav d-flex align-items-center">{links}</ul>
+      <div className="ml-auto">
+        <ul className="navbar-nav">{links}</ul>
       </div>
     </nav>
   );
