@@ -16,6 +16,7 @@ build:
       context: tickets
       docker:
         dockerfile: Dockerfile
+      
 
 manifests:
   rawYaml:
@@ -24,5 +25,8 @@ manifests:
     - infra/k8s/auth-mongo-depl.yaml
     - infra/k8s/client-depl.yaml
     - infra/k8s/tickets-depl.yaml
-    # - infra/k8s/tickets-mongo-depl.yaml
+    - infra/k8s/tickets-mongo-depl.yaml
+  
+
+
 

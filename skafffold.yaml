@@ -15,8 +15,8 @@ build:
       sync:
         manual:
           - src: 'src/**/*.ts'
-            dest: .  
-     - image: anmitdev/client
+            dest: .
+    - image: anmitdev/client
       context: client
       docker:
         dockerfile: Dockerfile
@@ -24,4 +24,14 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
+    - image: anmitdev/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+
+   
 
