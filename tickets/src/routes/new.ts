@@ -2,6 +2,8 @@ import express , {Request,Response} from 'express'
 import { requireAuth, validateRequest } from '@artickit/common';
 import { body } from 'express-validator';
 import { Ticket } from '../models/ticket';
+import { TicketCreatedPublisher } from '../events/publishers/ticket-publisher';
+
 const router = express.Router();
 
 router.post('/api/tickets',requireAuth,[
@@ -16,6 +18,13 @@ router.post('/api/tickets',requireAuth,[
             userId : req.currentUser!.id
         })
         await ticket.save();
+        // new TicketCreatedPublisher(client).publish({
+        //     id: ticket.id,
+        //     title : ticket.title,
+        //     price: ticket.price,
+        //     userId: ticket.userId
+        // });
+
         res.status(201).send(ticket);
 }); 
 
