@@ -39,7 +39,7 @@ const startDB = async () => {
     console.log(error);
   }
   app.listen(3000, () => {
-    console.log("Ticketing Server Stared at Port 3000");
+    console.log("Orders Server Stared at Port 3000");
   });
 };
 

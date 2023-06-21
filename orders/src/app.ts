@@ -4,8 +4,10 @@ import {json} from 'body-parser'
 
 import cookieSession from 'cookie-session';
 import { errorHandler,NotFoundError,currentUser} from '@artickit/common';
-
-
+import { newOrderRouter } from '../routes/new';
+import { deleteOrderRouter } from '../routes/delete';
+import { indexOrderRouter } from '../routes';
+import { showOrderRouter } from '../routes/show';
 
 
 const app = express();
@@ -17,6 +19,10 @@ app.use(cookieSession({
 
 }))
 app.use(currentUser);
+app.use(newOrderRouter);
+app.use(deleteOrderRouter);
+app.use(indexOrderRouter);
+app.use(showOrderRouter);
 
 app.get('*',async()=>{
     throw new NotFoundError()
