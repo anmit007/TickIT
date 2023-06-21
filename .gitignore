@@ -3,3 +3,4 @@
 /client/.
 /common/node_modules
 /tickets/node_modules
+/orders/node_modules
