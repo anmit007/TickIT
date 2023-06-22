@@ -1,9 +1,12 @@
 import mongoose from 'mongoose';
 import express , {Request,Response} from 'express'
-import { requireAuth,validateRequest} from '@artickit/common';
+import { BadRequestError, NotFoundError, OrderStatus, requireAuth,validateRequest} from '@artickit/common';
 import {body} from 'express-validator'
+import { Ticket } from '../src/models/ticket';
+import { Order } from '../src/models/order';
 
 const router = express.Router();
+const EXPIRATION_WINDOW_SECONDS = 15*60 ;
 
 router.post('/api/orders',requireAuth,[
     body('tickerId')
@@ -15,7 +18,46 @@ router.post('/api/orders',requireAuth,[
 
 ],validateRequest,async(req:Request,res:Response)=>{
 
-    res.send({});
+    // find the ticket the user is trying to order in the DB
+    const {tickerId} = req.body;
+    const ticket = await Ticket.findById(tickerId);
+    if(!ticket)
+    {
+        throw new  NotFoundError();
+    }
+    
+
+    // make sure that this ticket is not already reserved
+
+        // run a query to look at all orders. find an order where the ticket
+        // we just found and orders status is not cancelled
+        // if we find an order -> ticket is reserved
+    
+        const isReserved  = await ticket.isReserved()
+        if(isReserved)
+        {
+            throw new BadRequestError('Ticket is reserved');
+        }
+
+    // Calculate an expiration for this order
+
+        const expiration = new Date();
+        expiration.setSeconds(expiration.getSeconds()+EXPIRATION_WINDOW_SECONDS);
+
+    // build the order and save in DB
+        
+        const order = Order.build({
+            userId : req.currentUser!.id,
+            status: OrderStatus.Created,
+            expiresAt: expiration,
+            ticket
+        })
+    
+        await order.save();
+    //Publish an event saying that an order was created 
+
+
+        res.status(201).send(order);
 })
 
 export {router as newOrderRouter};
