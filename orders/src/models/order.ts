@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import {OrderStatus} from '@artickit/common'
 import { TicketDoc } from "./ticket";
-
+export {OrderStatus}
 
 interface orderAttrs 
 {
