@@ -1,7 +1,5 @@
-import { Publisher,Subjects, OrderCancelledEvent } from "@artickit/common";
+import { Subjects, Publisher, OrderCancelledEvent } from '@artickit/common';
 
-export class OrderCancelledPublisher extends Publisher<OrderCancelledEvent>
-{
-subject: Subjects.OrderCancelled = Subjects.OrderCancelled
+export class OrderCancelledPublisher extends Publisher<OrderCancelledEvent> {
+  subject: Subjects.OrderCancelled = Subjects.OrderCancelled;
 }
-
