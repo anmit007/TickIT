@@ -12,9 +12,11 @@ export class TicketCreatedListener extends Listener<TicketCreatedInterface> {
         const ticket = Ticket.build({
            id,
            title,
-           price
+           price,
         });
+
         await ticket.save();
+        
         msg.ack();
     }
 } 
