@@ -20,6 +20,10 @@ build:
       context: orders
       docker:
         dockerfile: Dockerfile
+    - image: anmitdev/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
 
 manifests:
   rawYaml:
@@ -32,6 +36,7 @@ manifests:
     - infra/k8s/nats-depl.yaml
     - infra/k8s/orders-depl.yaml
     - infra/k8s/orders-mongo-depl.yaml
-
+    - infra/k8s/expiration-depl.yaml
+    - infra/k8s/expiration-redis-depl.yaml
 
 
