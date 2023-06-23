@@ -6,7 +6,8 @@ import {
     validateRequest,
     NotFoundError,
     requireAuth,
-    NotAuthorizedError
+    NotAuthorizedError,
+    BadRequestError
     
 }from '@artickit/common'
 import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
@@ -30,6 +31,10 @@ router.put('/api/tickets/:id',requireAuth,[
     if(!ticket)
     {
         throw new NotFoundError();
+    }
+    if(ticket.orderId)
+    {
+        throw new BadRequestError('cannot edit an reserved ticket');
     }
     if(ticket.userId!=req.currentUser!.id)
     {
