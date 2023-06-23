@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import {OrderStatus} from '@artickit/common'
 import { TicketDoc } from "./ticket";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
+
 export {OrderStatus}
 
 interface orderAttrs 
@@ -55,6 +57,8 @@ userId: {
         },
     }
 });
+orderSchema.set('versionKey',"version");
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs:orderAttrs) => {
     return new Order(attrs);
