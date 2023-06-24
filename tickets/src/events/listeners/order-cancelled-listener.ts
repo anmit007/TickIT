@@ -23,6 +23,7 @@ export class OrderCancelledListener extends Listener <OrderCancelledEvent> {
             price: ticket.price,
             version: ticket.version
         });
+        msg.ack();
     }
 
 }
