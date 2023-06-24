@@ -2,8 +2,7 @@ import { BadRequestError, NotAuthorizedError, NotFoundError, OrderStatus, requir
 import express , {Request,Response} from "express";
 import { body } from "express-validator";
 import { Order } from "../models/order";
-
-
+import { stripe } from "../stripe";
 
 const router = express.Router();
 
@@ -15,8 +14,11 @@ router.post('/api/payments',requireAuth,[
     .not().isEmpty().withMessage('Provide a valid orderID')
 ],async(req:Request,res:Response)=>{
 
+    
     const {token,orderId} = req.body;
+    console.log(orderId);
     const order = await Order.findById(orderId);
+
     if(!order) {
         throw new NotFoundError();
     }
@@ -31,6 +33,14 @@ router.post('/api/payments',requireAuth,[
 
     }
 
+    await stripe.charges.create({
+        currency: 'usd',
+        amount: (order.price)*100,
+        source: token,
+        description: "Ticket Bought"
+       
+    });
+    
     res.send({suceess:true});
 
 });
