@@ -41,7 +41,7 @@ router.post('/api/payments',requireAuth,[
        
     });
     
-    res.send({suceess:true});
+    res.status(201).send({suceess:true});
 
 });
 export {router as createChargeRouter};
