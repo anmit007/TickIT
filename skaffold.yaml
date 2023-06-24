@@ -24,6 +24,10 @@ build:
       context: expiration
       docker:
         dockerfile: Dockerfile
+    - image: anmitdev/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
 
 manifests:
   rawYaml:
@@ -38,5 +42,7 @@ manifests:
     - infra/k8s/orders-mongo-depl.yaml
     - infra/k8s/expiration-depl.yaml
     - infra/k8s/expiration-redis-depl.yaml
+    - infra/k8s/payments-depl.yaml
+    - infra/k8s/payments-mongo-depl.yaml
 
 
